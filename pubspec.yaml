@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.6
   http: ^1.2.1
   gap: ^3.0.1
+  flutter_rounded_progress_bar: ^0.3.2
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:main_exam/screen/home/view/home_screen.dart';
+import 'package:main_exam/screen/login/view/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -81,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Gap(40),
                 InkWell(
                   onTap: () {
-                    Get.toNamed("home");
+                    Get.to(()=>HomeScreen(),transition: Transition.zoom);
                   },
                   child: Container(
                     height: MediaQuery.sizeOf(context).height * 0.065,
@@ -103,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Gap(150),
                 InkWell(
                   onTap: () {
-                    Get.toNamed("register");
+                    Get.to(()=>RegisterScreen(),transition: Transition.rightToLeft);
                   },
                   child: const Text.rich(
                     TextSpan(

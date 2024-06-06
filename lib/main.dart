@@ -6,6 +6,7 @@ void main() {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      // initialRoute: "quiz",
       routes: screen_routes,
     ),
   );
