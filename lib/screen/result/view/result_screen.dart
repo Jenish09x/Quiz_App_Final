@@ -22,12 +22,18 @@ class _ResultScreenState extends State<ResultScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "${controller.checkAns}",
-                style: const TextStyle(fontSize: 20),
+                "${controller.checkAns}/10",
+                style: const TextStyle(fontSize: 20, fontFamily: "regular"),
               ),
-              ElevatedButton(onPressed: () {
-                Get.off(()=>const HomeScreen(),transition: Transition.downToUp);
-              }, child: const Text("Re Play"))
+              ElevatedButton(
+                onPressed: () {
+                  controller.checkAns.value = 0;
+                  controller.index.value = 0;
+                  Get.off(() => const HomeScreen(),
+                      transition: Transition.downToUp);
+                },
+                child: const Text("Re Play"),
+              )
             ],
           ),
         ),

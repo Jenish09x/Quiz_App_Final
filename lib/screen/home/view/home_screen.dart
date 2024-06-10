@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,41 +51,84 @@ class _HomeScreenState extends State<HomeScreen> {
           () => Center(
             child: Column(
               children: [
-                Container(
-                  height: MediaQuery.sizeOf(context).height * 0.15,
-                  width: MediaQuery.sizeOf(context).width * 0.90,
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: const Color(0xff3AD29F),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                Stack(
+                  children: [
+                    Container(
+                      height: MediaQuery.sizeOf(context).height * 0.15,
+                      width: MediaQuery.sizeOf(context).width * 0.90,
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: const Color(0xff3AD29F),
+                          borderRadius: BorderRadius.circular(20)),
+                      // child: Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     const Column(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       children: [
+                      //         Text(
+                      //           "Let's Play",
+                      //           style: TextStyle(
+                      //               fontFamily: "semiBold",
+                      //               color: Colors.white,
+                      //               fontSize: 20),
+                      //         ),
+                      //         Text(
+                      //           "make your future here",
+                      //           style: TextStyle(
+                      //               fontFamily: "regular", color: Colors.white),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //     Image.asset(
+                      //       "assets/image/exams.png",
+                      //       height: 100,
+                      //     )
+                      //   ],
+                      // ),
+                    ),
+                    Container(
+                      height: MediaQuery.sizeOf(context).height * 0.15,
+                      width: MediaQuery.sizeOf(context).width * 0.90,
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Let's Play",
-                            style: TextStyle(
-                                fontFamily: "semiBold",
-                                color: Colors.white,
-                                fontSize: 20),
+                          const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Let's Play",
+                                style: TextStyle(
+                                    fontFamily: "semiBold",
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                              Text(
+                                "make your future here",
+                                style: TextStyle(
+                                    fontFamily: "regular", color: Colors.white),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "make your future here",
-                            style: TextStyle(
-                                fontFamily: "regular", color: Colors.white),
-                          ),
+                          Image.asset(
+                            "assets/image/exams.png",
+                            height: 100,
+                          )
                         ],
                       ),
-                      Image.asset(
-                        "assets/image/exams.png",
-                        height: 100,
-                      )
-                    ],
-                  ),
+                    ).blurry(
+                      blur: 1.5,
+                      elevation: 0,
+                      color: Colors.transparent,
+                    ),
+                  ],
                 ),
                 SizedBox(
                     width: MediaQuery.sizeOf(context).width * 0.90,
@@ -97,75 +143,143 @@ class _HomeScreenState extends State<HomeScreen> {
                           Get.toNamed("quiz",
                               arguments: controller.categoryList[index]);
                         },
-                        child: Container(
-                          height: MediaQuery.sizeOf(context).height * 0.17,
-                          width: MediaQuery.sizeOf(context).width * 0.90,
-                          padding: const EdgeInsets.all(10),
-                          margin: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              // color: controller.randomColor(),
-                              gradient: LinearGradient(
-                                  colors: [
-                                    controller.randomColor(),
-                                    controller.randomColor(),
-                                    controller.randomColor(),
-                                    // controller.randomColor(),
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: MediaQuery.sizeOf(context).height * 0.19,
+                              width: MediaQuery.sizeOf(context).width * 0.90,
+                              padding: const EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  // color: controller.randomColor(),
+                                  gradient: LinearGradient(
+                                      colors: [
+                                        controller.randomColor(),
+                                        controller.randomColor(),
+                                        controller.randomColor(),
+                                        // controller.randomColor(),
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight),
+                                  borderRadius: BorderRadius.circular(20)),
+                              // child: Column(
+                              //   children: [
+                              //     Row(
+                              //       mainAxisAlignment:
+                              //           MainAxisAlignment.spaceBetween,
+                              //       children: [
+                              //         Text(
+                              //           "${controller.categoryList[index].category}",
+                              //           style: const TextStyle(
+                              //               fontFamily: "semiBold",
+                              //               color: Colors.white,
+                              //               fontSize: 20),
+                              //         ),
+                              //         const Text(
+                              //           "10 question",
+                              //           style: TextStyle(
+                              //               fontFamily: "regular",
+                              //               color: Colors.white,
+                              //               fontSize: 17),
+                              //         ),
+                              //         Column(
+                              //           children: [
+                              //             Image.asset(
+                              //               "assets/image/book-stack 1.png",
+                              //               height: 70,
+                              //             ),
+                              //             const Text(
+                              //               "\$500",
+                              //               style: TextStyle(
+                              //                   fontFamily: 'semiBold',
+                              //                   color: Colors.white,
+                              //                   fontSize: 17),
+                              //             )
+                              //           ],
+                              //         )
+                              //       ],
+                              //     ),
+                              //     Divider(
+                              //       color: Colors.grey.shade200,
+                              //     ),
+                              //     const Align(
+                              //       alignment: Alignment.centerRight,
+                              //       child: Text(
+                              //         "entry people - 200 seats",
+                              //         style: TextStyle(
+                              //             fontFamily: 'regular',
+                              //             fontSize: 14,
+                              //             color: Colors.white),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                            ),
+                            Container(
+                              height: MediaQuery.sizeOf(context).height * 0.195,
+                              width: MediaQuery.sizeOf(context).width * 0.90,
+                              padding: const EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Column(
                                 children: [
-                                  Text(
-                                    "${controller.categoryList[index].category}",
-                                    style: const TextStyle(
-                                        fontFamily: "semiBold",
-                                        color: Colors.white,
-                                        fontSize: 20),
-                                  ),
-                                  const Text(
-                                    "10 question",
-                                    style: TextStyle(
-                                        fontFamily: "regular",
-                                        color: Colors.white,
-                                        fontSize: 17),
-                                  ),
-                                  Column(
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Image.asset(
-                                        "assets/image/book-stack 1.png",
-                                        height: 70,
+                                      Text(
+                                        "${controller.categoryList[index].category}",
+                                        style: const TextStyle(
+                                            fontFamily: "semiBold",
+                                            color: Colors.white,
+                                            fontSize: 20),
                                       ),
                                       const Text(
-                                        "\$500",
+                                        "10 question",
                                         style: TextStyle(
-                                            fontFamily: 'semiBold',
+                                            fontFamily: "regular",
                                             color: Colors.white,
                                             fontSize: 17),
+                                      ),
+                                      Column(
+                                        children: [
+                                          Image.asset(
+                                            "assets/image/book-stack 1.png",
+                                            height: 70,
+                                          ),
+                                          const Text(
+                                            "\$500",
+                                            style: TextStyle(
+                                                fontFamily: 'semiBold',
+                                                color: Colors.white,
+                                                fontSize: 17),
+                                          )
+                                        ],
                                       )
                                     ],
-                                  )
+                                  ),
+                                  Divider(
+                                    color: Colors.grey.shade200,
+                                  ),
+                                  const Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      "entry people - 200 seats",
+                                      style: TextStyle(
+                                          fontFamily: 'regular',
+                                          fontSize: 14,
+                                          color: Colors.white),
+                                    ),
+                                  ),
                                 ],
                               ),
-                              Divider(
-                                color: Colors.grey.shade200,
-                              ),
-                              const Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  "entry people - 200 seats",
-                                  style: TextStyle(
-                                      fontFamily: 'regular',
-                                      fontSize: 14,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ).blurry(
+                              blur: 1.5,
+                              elevation: 0,
+                              color: Colors.transparent,
+                            ),
+                          ],
                         ),
                       );
                     },

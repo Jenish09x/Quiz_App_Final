@@ -28,64 +28,103 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+        appBar: AppBar(
+          title: const Text.rich(
+            TextSpan(
               children: [
-                const Text(
-                  "Programming Test",
-                  style: TextStyle(
-                    fontFamily: 'regular',
-                    fontSize: 17,
-                  ),
-                ),
-                SizedBox(
-                  width: 300,
-                  child: RoundedProgressBar(
-                    percent: controller.index.value as double,
-                    height: 30,
-                    borderRadius: BorderRadius.circular(50),
-                    childRight: Text("${controller.index.value}/10"),
-                    style: RoundedProgressBarStyle(
-                      borderWidth: 2,
-                      colorBorder: const Color(0xff9A9999),
-                      colorProgress: const Color(0xffFCA82F),
-                      colorProgressDark: Colors.white,
-                      backgroundProgress: Colors.white,
-                      colorBackgroundIcon: Colors.yellow,
-                    ),
-                  ),
-                ),
-                Text(
-                  "Question - ${controller.index.value}",
-                  style: const TextStyle(
-                      fontFamily: 'regular',
-                      color: Color(0xff6066D0),
-                      fontSize: 20),
-                ),
-                const Gap(20),
-                const Text(
-                  "What is part of javascript?",
-                  style: TextStyle(fontFamily: 'regular', fontSize: 20),
-                ),
-                const Gap(20),
-                buttonTile(context,
-                    "${controller.randomList.value![controller.index.value].option![0]}"),
-                const Gap(20),
-                buttonTile(context,
-                    "${controller.randomList.value![controller.index.value].option![1]}"),
-                const Gap(20),
-                buttonTile(context,
-                    "${controller.randomList.value![controller.index.value].option![2]}"),
-                const Gap(20),
-                buttonTile(context,
-                    "${controller.randomList.value![controller.index.value].option![3]}"),
+                TextSpan(
+                    text: "Q",
+                    style: TextStyle(
+                        fontFamily: "semiBold", color: Color(0xff6066D0))),
+                TextSpan(
+                    text: "uiz ",
+                    style: TextStyle(
+                        fontFamily: "medium", color: Color(0xff535050))),
+                TextSpan(
+                    text: "App",
+                    style: TextStyle(
+                        fontFamily: "semiBold", color: Color(0xffFCA82F)))
               ],
             ),
           ),
+          centerTitle: true,
+        ),
+        body: Obx(
+          () => controller.quizList.value == null
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : controller.randomList.value == null ||
+                      controller.randomList.value!.isEmpty
+                  ? const Center(
+                      child: Text("No Data Available"),
+                    )
+                  : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Programming Test",
+                              style: TextStyle(
+                                fontFamily: 'regular',
+                                fontSize: 21,
+                              ),
+                            ),
+                            const Gap(30),
+                            SizedBox(
+                              width: 300,
+                              child: Obx(
+                                () => RoundedProgressBar(
+                                  percent: controller.index.value *
+                                      (100 / controller.quizList.value!.length),
+                                  height: 30,
+                                  borderRadius: BorderRadius.circular(50),
+                                  childRight:
+                                      Text("${controller.index.value}/10"),
+                                  style: RoundedProgressBarStyle(
+                                    borderWidth: 2,
+                                    colorBorder: const Color(0xff9A9999),
+                                    colorProgress: const Color(0xffFCA82F),
+                                    colorProgressDark: Colors.transparent,
+                                    backgroundProgress: Colors.white,
+                                    colorBackgroundIcon: Colors.yellow,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Gap(30),
+                            Text(
+                              "Question - ${controller.index.value + 1}",
+                              style: const TextStyle(
+                                  fontFamily: 'regular',
+                                  color: Color(0xff6066D0),
+                                  fontSize: 20),
+                            ),
+                            const Gap(10),
+                            Text(
+                              "${controller.randomList.value![controller.index.value].question}?",
+                              style: const TextStyle(
+                                  fontFamily: 'regular', fontSize: 20),
+                              textAlign: TextAlign.center,
+                            ),
+                            const Gap(50),
+                            buttonTile(context,
+                                "${controller.randomList.value![controller.index.value].option![0]}"),
+                            const Gap(10),
+                            buttonTile(context,
+                                "${controller.randomList.value![controller.index.value].option![1]}"),
+                            const Gap(10),
+                            buttonTile(context,
+                                "${controller.randomList.value![controller.index.value].option![2]}"),
+                            const Gap(10),
+                            buttonTile(context,
+                                "${controller.randomList.value![controller.index.value].option![3]}"),
+                          ],
+                        ),
+                      ),
+                    ),
         ),
       ),
     );
@@ -109,8 +148,8 @@ class _QuizScreenState extends State<QuizScreen> {
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.purple),
-            borderRadius: BorderRadius.circular(15)),
+            border: Border.all(color: Colors.amber),
+            borderRadius: BorderRadius.circular(30)),
         child: Text(
           ans,
           style: const TextStyle(overflow: TextOverflow.ellipsis),

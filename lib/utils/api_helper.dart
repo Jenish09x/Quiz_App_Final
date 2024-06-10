@@ -10,7 +10,7 @@ class ApiHelper {
 
   Future<List<HomeModel>?> getCategory() async {
     String apiLink =
-        'http://192.168.2.114/FLUTTER_API/learning/read_category_Api.php';
+        'http://192.168.203.58/FLUTTER_API/learning/read_category_Api.php';
     var res = await http.get(Uri.parse(apiLink));
     if (res.statusCode == 200) {
       List json = jsonDecode(res.body);
@@ -22,7 +22,7 @@ class ApiHelper {
 
   Future<List<QuizModel>?> getQuiz() async {
     String apiLink =
-        'http://192.168.2.114/FLUTTER_API/learning/read_quiz_Api.php';
+        'http://192.168.203.58/FLUTTER_API/learning/read_quiz_Api.php';
     var res = await http.get(Uri.parse(apiLink));
     if (res.statusCode == 200) {
       List json = jsonDecode(res.body);
@@ -32,12 +32,31 @@ class ApiHelper {
     return null;
   }
 
-  Future<void> registerData() async {
-    String apiLink = '';
-    var res = await http.get(Uri.parse(apiLink));
+  Future<void> registerData(String name, String email, String password) async {
+    String apiLink =
+        'http://192.168.203.58/FLUTTER_API/learning/user/register.php';
+    var res = await http.post(Uri.parse(apiLink), body: {
+      'name': name,
+      'email': email,
+      'password': password,
+    });
+    return jsonDecode(res.body);
+  }
 
-    if (res.statusCode == 200) {
-      List json = jsonDecode(res.body);
-    }
+  Future<Map<String, dynamic>> logIn(String email, String password) async {
+    final response = await http.post(
+      Uri.parse('http://192.168.203.58/FLUTTER_API/learning/user/login.php'),
+      body: {
+        'email': email,
+        'password': password,
+      },
+    );
+    return jsonDecode(response.body);
+  }
+
+
+  Future<void> logout() async {
+    await http.post(Uri.parse('http://192.168.203.58/FLUTTER_API/learning/user/logout.php'),
+    );
   }
 }

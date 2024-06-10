@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:main_exam/utils/shared_helper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,13 +10,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool? introStatus;
+
   @override
-  void initState() {
+  initState() {
     super.initState();
+    setBull();
     Future.delayed(
       const Duration(seconds: 3),
-      () => Get.offAllNamed("login"),
+      () => Get.offAllNamed(
+          introStatus == false || introStatus == null ? 'login' : 'home'),
     );
+  }
+
+  Future<void> setBull() async {
+    introStatus = await ShareHelper.shr.getLoginStatus();
   }
 
   @override

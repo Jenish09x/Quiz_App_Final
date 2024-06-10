@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:main_exam/screen/home/view/home_screen.dart';
 import 'package:main_exam/screen/login/view/register_screen.dart';
 
+import '../../../utils/api_helper.dart';
+import '../../../utils/shared_helper.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -13,6 +16,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtPassword = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: 300,
                   child: TextFormField(
+                    controller: txtEmail,
                     cursorColor: Colors.black,
                     decoration: const InputDecoration(
                       hintText: "Enter Your Email",
@@ -69,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: 300,
                   child: TextFormField(
+                    controller: txtPassword,
                     cursorColor: Colors.black,
                     decoration: const InputDecoration(
                       hintText: "Passwords",
@@ -82,8 +90,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const Gap(40),
                 InkWell(
-                  onTap: () {
-                    Get.to(()=>HomeScreen(),transition: Transition.zoom);
+                  onTap: () async {
+                    Map log = await ShareHelper.shr.getEmailPassword();
+                    final response = await ApiHelper.apiHelper.logIn(
+                      txtEmail.text,
+                      txtPassword.text,
+                    );
+                    if (txtEmail.text == log['email'] &&
+                        txtPassword.text == log['password']) {
+                      await ShareHelper.shr.setLoginLogout(true);
+
+                      Get.offAllNamed('home');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("Email and password invalid")),
+                      );
+                    }
+                    // Get.to(()=>const HomeScreen(),transition: Transition.zoom);
                   },
                   child: Container(
                     height: MediaQuery.sizeOf(context).height * 0.065,
@@ -105,7 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Gap(150),
                 InkWell(
                   onTap: () {
-                    Get.to(()=>RegisterScreen(),transition: Transition.rightToLeft);
+                    Get.to(() => const RegisterScreen(),
+                        transition: Transition.rightToLeft);
                   },
                   child: const Text.rich(
                     TextSpan(
